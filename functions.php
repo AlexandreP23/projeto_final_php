@@ -20,8 +20,6 @@ function login($conn){
         $result = mysqli_fetch_assoc($execute);
 
         if(!empty($result)){
-            //echo "Bem-vindo " . $return['nome'];
-
             session_start();
             $_SESSION['nome'] = $result['nome'];
             $_SESSION['id'] = $result['id'];
@@ -39,7 +37,6 @@ function logout(){
     header("Location: login.php");
 }
 
-//seleciona(busca) no bd apenas um resultado com base no id
 function searchUnique($conn, $tabela, $id){
     $query = "SELECT * FROM $tabela WHERE id =". (int) $id;
     $execute = mysqli_query($conn, $query);
@@ -47,7 +44,6 @@ function searchUnique($conn, $tabela, $id){
     return $result;
 }
 
-//seleciona(busca) no bd todos os resultados com base no WHERE 
 function search($conn, $tabela, $where = 1, $order = ""){
     if (!empty($order)){
         $order = "ORDER BY $order";
@@ -58,5 +54,117 @@ function search($conn, $tabela, $where = 1, $order = ""){
     return $results;
 }
 
+function insertUsers($conn){
+    if(isset($_POST['cadastrar']) AND !empty($_POST['email']) AND !empty($_POST['senha'])){
+        $erros = array();
+        
+        if ($_POST['senha'] != $_POST['repetesenha']){
+            $erros[] = "As senhas não conferem";
+        }
 
+        $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
+        if ($email === false) {
+            $erros[] = "Email inválido";
+        }
+
+        $nome = mysqli_real_escape_string($conn, $_POST['nome']);
+        $senha = sha1($_POST['senha']);
+
+        $queryEmail = "SELECT email FROM users WHERE email = '$email'";
+        $buscaEmail = mysqli_query($conn, $queryEmail);
+        $verifica = mysqli_num_rows($buscaEmail);
+
+        if ($verifica > 0){
+            $erros[] = "E-mail já cadastrado";            
+        }
+
+        if (empty($erros)){
+            $query = "INSERT INTO users (nome, email, senha, data_cadastro) VALUES ('$nome', '$email', '$senha', NOW())";
+            $execute = mysqli_query($conn, $query);
+            if ($execute){
+                echo "Usuário cadastrado com sucesso";
+            } else{
+                echo "Erro ao cadastrar usuário";
+            }
+        } else{
+            foreach ($erros as $erro){
+                echo "<p>$erro</p>";
+            }
+        }
+    }
+}
+
+function delete($conn, $tabela, $id){
+    if (!empty($id)){
+        $query = "DELETE FROM $tabela WHERE id =". (int) $id;
+        $execute = mysqli_query($conn, $query);        
+    }
+
+    if ($execute){
+        echo "Dado deletado com sucesso!";
+    } else{
+        echo "Erro ao deletar dado!";
+    }
+}
+
+function upDateUser($conn){
+    if(isset($_POST['atualizar']) AND !empty($_POST['email']) AND !empty($_POST['nome'])){
+        $erros = array();
+        $id = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
+        $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
+        $nome = mysqli_real_escape_string($conn, $_POST['nome']);
+        $senha = "";
+        $data = mysqli_real_escape_string($conn, $_POST['data_cadastro']);
+
+        if (empty($data)){
+            $erros[] = "Preencha a data de cadastro";
+        }
+
+        if (strlen($nome) < 3){
+            $erros[] = "Preencha seu nome completo";
+        }
+
+        if (!empty($_POST['senha'])){
+            if ($_POST['senha'] == $_POST['repetesenha']){
+                $senha = sha1($_POST['senha']);
+            } else{
+                $erros[] = "As senhas não conferem";
+            }
+        }
+        
+        if (empty($email)) {
+            $erros[] = "Preencha seu E-mail corretamente";
+        }
+
+        $queryEmailAtual = "SELECT email FROM users WHERE id = $id";
+        $buscaEmailAtual = mysqli_query($conn, $queryEmailAtual);
+        $retornaEmail = mysqli_fetch_assoc($buscaEmailAtual);
+        
+        $queryEmail = "SELECT email FROM users WHERE email = '$email' AND email <> '". $retornaEmail['email'] ."'";
+        $buscaEmail = mysqli_query($conn, $queryEmail);
+        $verifica = mysqli_num_rows($buscaEmail);
+
+        if ($verifica > 0){
+            $erros[] = "E-mail já cadastrado";            
+        }
+
+        if (empty($erros)){
+            if (!empty($senha)){
+                $query = "UPDATE users SET nome = '$nome', email = '$email', senha = '$senha', data_cadastro = '$data' WHERE id =" . $id;
+            } else{
+                $query = "UPDATE users SET nome = '$nome', email = '$email', data_cadastro = '$data' WHERE id =" . $id;
+            }
+            $execute = mysqli_query($conn, $query);
+            if ($execute){
+                echo "Usuário atualizado com sucesso";
+            } else{
+                echo "Erro ao atualizar usuário";
+            }
+        } else{
+            foreach ($erros as $erro){
+                echo "<p>$erro</p>";
+            }
+        }
+    }
+}
 ?>

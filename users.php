@@ -26,13 +26,41 @@ require_once "functions.php";
         </div>
     </nav>
 
-    <?php 
-
+<?php
     $tabela = "users";
     $order = "nome";
-    $usuarios = search($conn, $tabela, 1, $order);
+    $usuarios = search($conn, $tabela, 1, $order);    
+    insertUsers($conn);
     
+    if(isset($_GET['id'])){ ?>
+        <h2>Tem certeza que deseja excluir o usuário <?php echo $_GET['nome']; ?>?</h2>
+        <form action="" method="post">
+            <input type="hidden" name="id" value="<?php echo $_GET['id']?>">
+            <input type="submit" name="deletar" value="Deletar">
+        </form>
+
+    <?php } ?>
+
+    <?php 
+        if(isset($_POST['deletar'])){
+            if($_SESSION['id'] != $_POST['id']){
+                delete($conn, "users", $_POST['id']);    
+            }else{
+                echo "Você não pode excluir seu próprio usuário";
+            }
+        }
     ?>
+
+    <form action="" method="post">
+        <fieldset>
+            <legend>Inserir Usuários</legend>
+            <input type="text" name="nome" placeholder="Nome">
+            <input type="email" name="email" placeholder="E-mail">
+            <input type="password" name="senha" placeholder="Senha">
+            <input type="password" name="repetesenha" placeholder="Confirme sua senha">
+            <input type="submit" name="cadastrar" value="Cadastrar">
+        </fieldset>
+    </form>
 
     <div class="container">
         <table border="1">
@@ -42,6 +70,7 @@ require_once "functions.php";
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Data Cadastro</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +80,11 @@ require_once "functions.php";
                         <td><?php echo $usuario['nome']; ?></td>
                         <td><?php echo $usuario['email']; ?></td>
                         <td><?php echo $usuario['data_cadastro']; ?></td>
+                        <td>
+                            <a href="users.php?id=<?php echo $usuario['id']; ?>&nome=<?php echo $usuario['nome']; ?>">Excluir</a>
+
+                            <a href="edit_user.php?id=<?php echo $usuario['id']; ?>&nome=<?php echo $usuario['nome']; ?>">Atualizar</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
