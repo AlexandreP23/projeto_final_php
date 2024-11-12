@@ -1,6 +1,5 @@
 <?php session_start(); 
 $seguranca = isset($_SESSION['ativa']) ? TRUE : header("Location: login.php");
-
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +14,7 @@ $seguranca = isset($_SESSION['ativa']) ? TRUE : header("Location: login.php");
 
     <h1>Painel Administrativo</h1>
     <h3>Bem-vindo, <?php echo $_SESSION['nome']; ?></h3>
-    <a href="logout.php">Sair</a>
+   
 
     <nav>
         <div>

@@ -6,6 +6,9 @@ $db_password = "";
 $db_name = "project_db";
 
 $conn = new mysqli($host, $db_user, $db_password, $db_name);
+if ($conn->connect_error) {
+    die("Erro de conexão: " . $conn->connect_error);
+}
 
 function login($conn){
     if(isset($_POST['acessar']) AND !empty($_POST['email']) AND !empty($_POST['senha'])){
@@ -16,12 +19,12 @@ function login($conn){
         $execute = mysqli_query($conn, $query);
         $result = mysqli_fetch_assoc($execute);
 
-        if(!empty($return)){
+        if(!empty($result)){
             //echo "Bem-vindo " . $return['nome'];
 
             session_start();
-            $_SESSION['nome'] = $return['nome'];
-            $_SESSION['id'] = $return['id'];
+            $_SESSION['nome'] = $result['nome'];
+            $_SESSION['id'] = $result['id'];
             $_SESSION['ativa'] = TRUE;
             header("Location: index.php");
         }else{

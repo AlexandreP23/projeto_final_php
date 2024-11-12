@@ -45,17 +45,14 @@ require_once "functions.php";
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($usuarios as $usuario) : ?> {
-                        <tr>
-                            <td><?php echo $usuario['id']; ?></td>
-                            <td><?php echo $usuario['nome']; ?></td>
-                            <td><?php echo $usuario['email']; ?></td>
-                            <td><?php echo $usuario['data_cadastro']; ?></td>
-                        </tr>
-                        
+                <?php foreach ($usuarios as $usuario): ?> 
+                    <tr>
+                        <td><?php echo $usuario['id']; ?></td>
+                        <td><?php echo $usuario['nome']; ?></td>
+                        <td><?php echo $usuario['email']; ?></td>
+                        <td><?php echo $usuario['data_cadastro']; ?></td>
+                    </tr>
                 <?php endforeach; ?>
-                    }
-                ?>
             </tbody>
         </table>
 

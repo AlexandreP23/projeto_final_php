@@ -1,4 +1,4 @@
-<?php require_once "functions.php" ?>
+<?php require_once "functions.php"; ?>
 
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
     <title>Start up</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="login.php" method="post">
         <fieldset>
             <legend>Painel de Login</legend>
             <input type="email" name="email" placeholder="Informe seu E-mail" required>
