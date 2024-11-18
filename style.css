@@ -1,23 +1,21 @@
-/* Estilo Global */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #2e3b4e; /* Fundo combinando com o logo */
-  color: #ffffff; /* Texto padrão em branco */
+  background-color: #2e3b4e;
+  color: #ffffff;
   line-height: 1.6;
 }
 
 a {
   text-decoration: none;
-  color: #00bcd4; /* Azul ciano */
+  color: #00bcd4;
 }
 
 a:hover {
   text-decoration: underline;
 }
 
-/* Cabeçalho com Logotipo */
 .header {
   background-color: transparent;
   text-align: center;
@@ -35,11 +33,10 @@ a:hover {
   margin-top: 10px;
 }
 
-/* Sessão Workflow */
 .workflow {
   padding: 40px 20px;
   text-align: center;
-  background-color: #2e3b4e; /* Fundo principal */
+  background-color: #2e3b4e;
 }
 
 .workflow h2 {
@@ -52,12 +49,12 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px; /* Ajusta o espaçamento entre os itens */
+  gap: 30px;
   flex-wrap: wrap;
 }
 
 .step-card {
-  background-color: #00bcd4; /* Fundo azul ciano */
+  background-color: #00bcd4;
   color: #ffffff;
   width: 250px;
   padding: 20px;
@@ -75,12 +72,12 @@ a:hover {
 }
 
 .step-card.active {
-  background-color: #005a73; /* Fundo mais escuro para etapa ativa */
+  background-color: #005a73;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
 }
 
 .icon-container {
-  background-color: #ffffff; /* Fundo branco para contraste */
+  background-color: #ffffff;
   border-radius: 50%;
   padding: 15px;
   width: 100px;
@@ -93,28 +90,27 @@ a:hover {
 }
 
 .icon-container img {
-  max-width: 60%; /* Tamanho do ícone ajustado */
+  max-width: 60%;
 }
 
 .step-card h3 {
   margin: 10px 0;
   font-size: 18px;
-  color: #2e3b4e; /* Texto escuro para contraste */
+  color: #2e3b4e;
 }
 
 .arrow {
   width: 40px;
   height: 40px;
-  background-color: #00bcd4; /* Fundo da seta */
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Desenho de seta */
+  background-color: #00bcd4;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   margin: 0 10px;
 }
 
-/* Detalhes Dinâmicos */
 .details-container {
   margin-top: 30px;
   padding: 20px;
-  background-color: #455a64; /* Fundo cinza escuro */
+  background-color: #455a64;
   color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -127,7 +123,7 @@ a:hover {
 
 .details-container h3 {
   margin-bottom: 10px;
-  color: #8bc34a; /* Texto verde claro */
+  color: #8bc34a;
 }
 
 .details-container.hidden {
@@ -140,7 +136,6 @@ a:hover {
   color: #8bc34a;
 }
 
-/* Sessão Benefícios */
 .benefits {
   padding: 40px 20px;
   background-color: #2e3b4e;
@@ -169,7 +164,6 @@ a:hover {
   text-align: center;
 }
 
-/* Sessão Estatísticas */
 .statistics {
   padding: 40px 20px;
   background-color: #3e4e63;
@@ -181,7 +175,6 @@ a:hover {
   color: #00bcd4;
 }
 
-/* Sessão Depoimentos */
 .testimonials {
   padding: 40px 20px;
   text-align: center;
@@ -203,7 +196,6 @@ a:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Sessão Call to Action */
 .cta {
   padding: 40px 20px;
   background-color: #3e4e63;
@@ -232,7 +224,6 @@ a:hover {
   color: #00bcd4;
 }
 
-/* Sessão Equipe */
 .team {
   text-align: center;
   padding: 40px 20px;
@@ -280,7 +271,6 @@ a:hover {
   color: #ffffff;
 }
 
-/* Sessão Sobre Nós */
 .about {
   padding: 40px 20px;
   text-align: center;
@@ -304,7 +294,6 @@ a:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Detalhes de Contato */
 .contact {
   background-color: #3e4e63;
   padding: 20px;
@@ -317,7 +306,6 @@ a:hover {
   margin-bottom: 10px;
 }
 
-/* Sessão Links */
 .links {
   text-align: center;
   padding: 40px 20px;
@@ -348,7 +336,6 @@ a:hover {
   color: #00bcd4;
 }
 
-/* Rodapé */
 .footer {
   background-color: #3e4e63;
   color: #ffffff;
@@ -365,7 +352,6 @@ a:hover {
   color: #ffffff;
 }
 
-/* Botões Gerais */
 .button {
   display: inline-block;
   padding: 10px 20px;
@@ -383,7 +369,6 @@ a:hover {
   color: #00bcd4;
 }
 
-/* Botão Login de Admin */
 .admin-login {
   position: absolute;
   top: 10px;
@@ -394,23 +379,22 @@ a:hover {
 .admin-button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #455a64; /* Azul escuro para contraste */
+  background-color: #455a64;
   color: #ffffff;
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
   border-radius: 5px;
-  border: 2px solid #ffffff; /* Bordas brancas para destaque */
+  border: 2px solid #ffffff;
   transition: 0.3s ease-in-out;
 }
 
 .admin-button:hover {
   background-color: #ffffff;
-  color: #455a64; /* Inverte as cores ao passar o mouse */
+  color: #455a64;
   border: 2px solid #455a64;
 }
 
-/* Botão Criativo para Voltar */
 .back-button-container {
   text-align: center;
   margin: 20px 0;
@@ -419,7 +403,7 @@ a:hover {
 .back-button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #8bc34a; /* Verde claro para contraste */
+  background-color: #8bc34a;
   color: #ffffff;
   font-size: 16px;
   font-weight: bold;
@@ -431,6 +415,6 @@ a:hover {
 
 .back-button:hover {
   background-color: #ffffff;
-  color: #8bc34a; /* Inverte as cores ao passar o mouse */
+  color: #8bc34a;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }

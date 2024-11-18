@@ -2,6 +2,7 @@
 session_start(); 
 $seguranca = isset($_SESSION['ativa']) ? TRUE : header("Location: login.php");
 require_once "functions.php";
+$conn = connect(); 
 ?>
 
 <!DOCTYPE html>
@@ -11,9 +12,9 @@ require_once "functions.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin - Usuários</title>
     <style>
-        /* Estilo do background */
+        
         body {
-            background-color: #2E3B4E; /* Mesmo fundo do login.php */
+            background-color: #2E3B4E; 
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -23,7 +24,7 @@ require_once "functions.php";
             height: 100vh;
         }
 
-        /* Container principal */
+        
         .container {
             background-color: #fff;
             border: 1px solid #ddd;
@@ -35,7 +36,7 @@ require_once "functions.php";
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Estilo do cabeçalho */
+        
         h1, h2, h3 {
             text-align: center;
             margin-bottom: 20px;
@@ -56,7 +57,7 @@ require_once "functions.php";
             font-size: 1rem;
         }
 
-        /* Navegação */
+       
         nav {
             display: flex;
             justify-content: center;
@@ -79,7 +80,7 @@ require_once "functions.php";
             color: #fff;
         }
 
-        /* Formulários */
+        
         form {
             margin: 20px 0;
         }
@@ -119,7 +120,7 @@ require_once "functions.php";
             background-color: #0056b3;
         }
 
-        /* Tabela */
+        
         table {
             width: 100%;
             border-collapse: collapse;
@@ -152,6 +153,11 @@ require_once "functions.php";
 
         table a:hover {
             text-decoration: underline;
+        }
+
+        table img {
+            max-width: 50px;
+            height: auto;
         }
     </style>
 </head>
@@ -192,13 +198,14 @@ require_once "functions.php";
         }
         ?>
 
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Inserir Usuários</legend>
                 <input type="text" name="nome" placeholder="Nome">
                 <input type="email" name="email" placeholder="E-mail">
                 <input type="password" name="senha" placeholder="Senha">
                 <input type="password" name="repetesenha" placeholder="Confirme sua senha">
+                <input type="file" name="foto" accept="image/*">
                 <input type="submit" name="cadastrar" value="Cadastrar">
             </fieldset>
         </form>
@@ -210,6 +217,7 @@ require_once "functions.php";
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Data Cadastro</th>
+                    <th>Foto</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -220,9 +228,10 @@ require_once "functions.php";
                         <td><?php echo $usuario['nome']; ?></td>
                         <td><?php echo $usuario['email']; ?></td>
                         <td><?php echo $usuario['data_cadastro']; ?></td>
+                        <td><img src="<?php echo $usuario['foto']; ?>" alt="Foto de <?php echo htmlspecialchars($usuario['nome']); ?>"></td>
                         <td>
                             <a href="users.php?id=<?php echo $usuario['id']; ?>&nome=<?php echo urlencode($usuario['nome']); ?>">Excluir</a>
-                            <a href="edit_user.php?id=<?php echo $usuario['id']; ?>&nome=<?php echo urlencode($usuario['nome']); ?>">Atualizar</a>
+                            <a href="edit_users.php?id=<?php echo $usuario['id']; ?>&nome=<?php echo urlencode($usuario['nome']); ?>">Atualizar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

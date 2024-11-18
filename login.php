@@ -1,80 +1,87 @@
-<?php require_once "functions.php"; ?>
+<?php
+session_start(); 
+include 'functions.php';
+$conn = connect(); 
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    login($conn); 
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Login</title>
+    <title>Login</title>
     <style>
-        /* Background igual ao index_frontend.php */
+        
         body {
-            background-color: #2E3B4E; /* Substitua por sua cor de fundo da index_frontend.php */
+            background-color: #2E3B4E; 
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        /* Caixa do Painel de Login */
-        form {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
+        
+        .container {
+            background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 10px;
-            background-color: white;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        fieldset {
-            border: none;
-        }
-
-        legend {
-            font-size: 1.5rem;
+        
+        h1 {
             color: #333;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
             text-align: center;
+            margin-bottom: 20px;
         }
 
-        input[type="email"], input[type="password"] {
+        
+        form {
+            margin: 20px 0;
+        }
+
+        form input[type="email"],
+        form input[type="password"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
+            margin: 10px 0;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 1rem;
         }
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
+        form input[type="submit"] {
             background-color: #007BFF;
             color: #fff;
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
+            padding: 10px 20px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        input[type="submit"]:hover {
+        form input[type="submit"]:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <form action="login.php" method="post">
-        <fieldset>
-            <legend>Painel de Login</legend>
-            <input type="email" name="email" placeholder="Informe seu E-mail" required>
-            <input type="password" name="senha" placeholder="Informe sua Senha" required>
+    <div class="container">
+        <h1>Login</h1>
+        <form action="" method="post">
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="password" name="senha" placeholder="Senha" required>
             <input type="submit" name="acessar" value="Acessar">
-        </fieldset>
-    </form>
-
-    <?php 
-        if(isset($_POST['acessar'])){
-            login($conn);
-        }
-    ?>
+        </form>
+    </div>
 </body>
 </html>

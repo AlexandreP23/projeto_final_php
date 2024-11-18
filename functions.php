@@ -1,13 +1,16 @@
 <?php
+function connect() {
+    $host = "localhost";
+    $db_user = "root";
+    $db_password = "";
+    $db_name = "project_db";
 
-$host = "localhost";
-$db_user = "root";
-$db_password = "";
-$db_name = "project_db";
+    $conn = new mysqli($host, $db_user, $db_password, $db_name);
+    if ($conn->connect_error) {
+        die("Erro de conexão: " . $conn->connect_error);
+    }
 
-$conn = new mysqli($host, $db_user, $db_password, $db_name);
-if ($conn->connect_error) {
-    die("Erro de conexão: " . $conn->connect_error);
+    return $conn;
 }
 
 function login($conn){
@@ -78,8 +81,20 @@ function insertUsers($conn){
             $erros[] = "E-mail já cadastrado";            
         }
 
+        $foto = "";
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $uploadDir = 'uploads/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            $foto = $uploadDir . basename($_FILES['foto']['name']);
+            if (!move_uploaded_file($_FILES['foto']['tmp_name'], $foto)) {
+                $erros[] = "Erro ao enviar a foto.";
+            }
+        }
+
         if (empty($erros)){
-            $query = "INSERT INTO users (nome, email, senha, data_cadastro) VALUES ('$nome', '$email', '$senha', NOW())";
+            $query = "INSERT INTO users (nome, email, senha, data_cadastro, foto) VALUES ('$nome', '$email', '$senha', NOW(), '$foto')";
             $execute = mysqli_query($conn, $query);
             if ($execute){
                 echo "Usuário cadastrado com sucesso";
@@ -115,48 +130,36 @@ function upDateUser($conn){
         $nome = mysqli_real_escape_string($conn, $_POST['nome']);
         $senha = "";
         $data = mysqli_real_escape_string($conn, $_POST['data_cadastro']);
-
         if (empty($data)){
             $erros[] = "Preencha a data de cadastro";
         }
-
         if (strlen($nome) < 3){
             $erros[] = "Preencha seu nome completo";
         }
 
-        if (!empty($_POST['senha'])){
-            if ($_POST['senha'] == $_POST['repetesenha']){
-                $senha = sha1($_POST['senha']);
-            } else{
-                $erros[] = "As senhas não conferem";
+        $foto = "";
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $uploadDir = 'uploads/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
             }
-        }
-        
-        if (empty($email)) {
-            $erros[] = "Preencha seu E-mail corretamente";
-        }
-
-        $queryEmailAtual = "SELECT email FROM users WHERE id = $id";
-        $buscaEmailAtual = mysqli_query($conn, $queryEmailAtual);
-        $retornaEmail = mysqli_fetch_assoc($buscaEmailAtual);
-        
-        $queryEmail = "SELECT email FROM users WHERE email = '$email' AND email <> '". $retornaEmail['email'] ."'";
-        $buscaEmail = mysqli_query($conn, $queryEmail);
-        $verifica = mysqli_num_rows($buscaEmail);
-
-        if ($verifica > 0){
-            $erros[] = "E-mail já cadastrado";            
+            $foto = $uploadDir . basename($_FILES['foto']['name']);
+            if (!move_uploaded_file($_FILES['foto']['tmp_name'], $foto)) {
+                $erros[] = "Erro ao enviar a foto.";
+            }
         }
 
         if (empty($erros)){
-            if (!empty($senha)){
-                $query = "UPDATE users SET nome = '$nome', email = '$email', senha = '$senha', data_cadastro = '$data' WHERE id =" . $id;
+            if (!empty($_POST['senha'])){
+                $senha = sha1($_POST['senha']);
+                $query = "UPDATE users SET nome = '$nome', email = '$email', senha = '$senha', data_cadastro = '$data', foto = '$foto' WHERE id =" . $id;
             } else{
-                $query = "UPDATE users SET nome = '$nome', email = '$email', data_cadastro = '$data' WHERE id =" . $id;
+                $query = "UPDATE users SET nome = '$nome', email = '$email', data_cadastro = '$data', foto = '$foto' WHERE id =" . $id;
             }
             $execute = mysqli_query($conn, $query);
             if ($execute){
-                echo "Usuário atualizado com sucesso";
+                header("Location: users.php"); 
+                exit();
             } else{
                 echo "Erro ao atualizar usuário";
             }

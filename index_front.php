@@ -1,5 +1,5 @@
 <?php
-// Define as etapas do fluxo
+
 $steps = [
     1 => [
         "title" => "Upload do Relatório",
@@ -18,7 +18,7 @@ $steps = [
     ],
 ];
 
-// Determina qual etapa está ativa
+
 $currentStep = isset($_GET['step']) ? (int)$_GET['step'] : 1;
 ?>
 
@@ -32,18 +32,18 @@ $currentStep = isset($_GET['step']) ? (int)$_GET['step'] : 1;
 </head>
 <body>
 
-    <!-- Botão Login de Admin -->
+    
     <div class="admin-login">
         <a href="login.php" class="admin-button">Login de Admin</a>
     </div>
 
-    <!-- Cabeçalho com Logo -->
+    
     <header class="header">
         <img src="logo.png" alt="MedLang AI Logo" class="logo">
         <h1>Translate your radiological database to English in seconds</h1>
     </header>
 
-    <!-- Sessão Workflow -->
+   
     <section class="workflow">
         <h2>Como Funciona</h2>
         <div class="workflow-container">
@@ -61,14 +61,14 @@ $currentStep = isset($_GET['step']) ? (int)$_GET['step'] : 1;
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
-        <!-- Detalhes Dinâmicos -->
+        
         <div class="details-container">
             <h3><?= $steps[$currentStep]['title'] ?></h3>
             <p><?= $steps[$currentStep]['description'] ?></p>
         </div>
     </section>
 
-    <!-- Sessão Benefícios -->
+    
     <section class="benefits">
         <h2>Benefícios do MedLang AI</h2>
         <div class="benefits-container">
@@ -87,20 +87,20 @@ $currentStep = isset($_GET['step']) ? (int)$_GET['step'] : 1;
         </div>
     </section>
 
-    <!-- Sessão Links -->
+    
     <section class="links">
         <h2>Explore Mais</h2>
         <a href="about.php" class="button">Sobre Nós</a>
     </section>
 
-    <!-- Call to Action -->
+    
     <section class="cta">
         <h2>Quer saber mais?</h2>
         <p>Entre em contato para agendar uma demonstração ou entender como podemos transformar o seu negócio.</p>
         <a href="contact.php" class="button">Fale Conosco</a>
     </section>
 
-    <!-- Rodapé -->
+    
     <footer class="footer">
         <p>All rights reserved | Porto Alegre, Rio Grande do Sul, Brasil</p>
     </footer>

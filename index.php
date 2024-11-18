@@ -10,9 +10,9 @@ $seguranca = isset($_SESSION['ativa']) ? TRUE : header("Location: login.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin</title>
     <style>
-        /* Estilo do background */
+        
         body {
-            background-color: #2E3B4E; /* Mesmo fundo do login.php */
+            background-color: #2E3B4E; 
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -22,7 +22,7 @@ $seguranca = isset($_SESSION['ativa']) ? TRUE : header("Location: login.php");
             height: 100vh;
         }
 
-        /* Container principal */
+        
         .container {
             background-color: #fff;
             border: 1px solid #ddd;
@@ -33,7 +33,7 @@ $seguranca = isset($_SESSION['ativa']) ? TRUE : header("Location: login.php");
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Estilo do cabeçalho */
+        
         h1, h3 {
             text-align: center;
             margin-bottom: 20px;
@@ -49,7 +49,7 @@ $seguranca = isset($_SESSION['ativa']) ? TRUE : header("Location: login.php");
             font-size: 1.2rem;
         }
 
-        /* Navegação */
+        
         nav {
             display: flex;
             flex-direction: column;
