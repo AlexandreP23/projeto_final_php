@@ -5,7 +5,7 @@ facilitando a comunicação entre profissionais da saúde e pacientes em context
 
 ## 🚀 Sobre o Projeto
 
-O projeto foi iniciado como uma iniciativa da nossa startup, em parceria com **Lucas Alves** e **Isadora de Abreu**. A primeira versão do sistema inclui um **CRUD** para cadastro de usuários 
+A primeira versão do sistema inclui um **CRUD** para cadastro de usuários 
 e laudos, além de uma interface inicial para acesso às traduções dos laudos geradas por IA.
 
 ---
